@@ -28,7 +28,10 @@ class Player(GameSprite):
         if keys[K_a] and self.rect.x > 0:
             self.rect.x -= self.speed
         print(self.rect.y, self.rect.x)
-
+class Enemy_ball(GameSprite):
+    direction = 'left'
+    def update(self):
+        pass
 class Wall(sprite.Sprite):
     def __init__(self, x, y, w, h,color):
         super().__init__()
@@ -39,8 +42,10 @@ class Wall(sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 wall1 = Wall(20,0,20,555, (71, 255, 81))
-
-player = Player(50, 265, 470, 50, 'plat.png', 5)
+ball = GameSprite(260, 190, 60, 60, 'ball.png')
+player = Player(495, 250, 75, 150, 'plat.png', 5)
+speed_x = 3
+speed_y = 3
 run = True
 finish = False
 clock = time.Clock()
@@ -49,9 +54,12 @@ while run:
         if e.type == QUIT:
             run = False
     if not finish:
+        ball.rect.x += speed_x
+        ball.rect.y += speed_y
         window.blit(BG, (0,0))
         player.reset()
         player.update()
-    
+        ball.reset()
+
     display.update()
     clock.tick(60)
