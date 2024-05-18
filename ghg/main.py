@@ -44,6 +44,7 @@ class Wall(sprite.Sprite):
 wall1 = Wall(20,0,20,555, (71, 255, 81))
 ball = GameSprite(260, 190, 60, 60, 'ball.png')
 player = Player(495, 250, 75, 150, 'plat.png', 5)
+vrag = Player(35, 250, 75, 150, 'plat.png', 5)
 speed_x = 3
 speed_y = 3
 run = True
@@ -59,7 +60,21 @@ while run:
         window.blit(BG, (0,0))
         player.reset()
         player.update()
+        vrag.reset()
+        vrag.update()
         ball.reset()
+        if sprite.collide_rect(player, ball):
+            print('ghg')
+            speed_x *= -1
+        if ball.rect.y >= 550:
+            speed_y *= -1
+        if sprite.collide_rect(vrag, ball):
+            speed_x *= -1
+        if ball.rect.y < vrag.rect.bottom:                 
+            print('gg')
+        if ball.rect.x <= 70:
+            speed_x *= -1
+            print('fgt')
 
     display.update()
     clock.tick(60)
